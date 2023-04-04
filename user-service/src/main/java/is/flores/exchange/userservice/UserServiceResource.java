@@ -1,4 +1,4 @@
-package is.flores.exchange.jwtservice;
+package is.flores.exchange.userservice;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -10,14 +10,14 @@ import javax.ws.rs.core.Response;
 
 @Path("/jwt")
 @ApplicationScoped
-public class JwtServiceResource {
+public class UserServiceResource {
 
     @Inject
     JwtService jwtService;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getJwt() {
+    public Response a() {
         String jwt = jwtService.generateJwt();
         return Response.ok(jwt).build();
     }

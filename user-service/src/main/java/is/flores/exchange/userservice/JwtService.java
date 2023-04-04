@@ -1,4 +1,4 @@
-package is.flores.exchange.jwtservice;
+package is.flores.exchange.userservice;
 
 import io.smallrye.jwt.build.Jwt;
 
