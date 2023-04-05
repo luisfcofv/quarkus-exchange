@@ -10,6 +10,7 @@
     <modules>
         <module>order-service</module>
         <module>user-service</module>
+        <module>gateway-service</module>
     </modules>
     <properties>
         <compiler-plugin.version>3.10.1</compiler-plugin.version>
