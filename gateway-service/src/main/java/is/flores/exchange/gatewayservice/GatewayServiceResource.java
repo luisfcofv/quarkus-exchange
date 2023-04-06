@@ -2,6 +2,7 @@ package is.flores.exchange.gatewayservice;
 
 import io.quarkus.grpc.GrpcClient;
 import io.smallrye.mutiny.Uni;
+import is.flores.exchange.gatewayservice.models.LoginResponse;
 import is.flores.exchange.grpc.userservice.FetchJwtRequest;
 import is.flores.exchange.grpc.userservice.FetchJwtResponse;
 import is.flores.exchange.grpc.userservice.UserService;
@@ -21,10 +22,11 @@ public class GatewayServiceResource {
     UserService userService;
 
     @GET
+    @Path("/login")
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<String> getItems() {
-        return userService.fetchJwt(FetchJwtRequest.newBuilder().setName("name").build())
-                .onItem().transform(FetchJwtResponse::getJwt);
+    public Uni<LoginResponse> getJwt() {
+        var uniResponse = userService.fetchJwt(FetchJwtRequest.newBuilder().setName("name").build());
+        return uniResponse.onItem().transform(FetchJwtResponse::getJwt).map(LoginResponse::new);
     }
 }
