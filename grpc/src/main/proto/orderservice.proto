@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package orderservice;
+
+option java_multiple_files = true;
+option java_package = "is.flores.exchange.grpc.orderservice";
+option java_outer_classname = "OrderServiceProto";
+
+service OrderService {
+  rpc SubmitOrder (SubmitOrderRequest) returns (SubmitOrderResponse) {}
+}
+
+message SubmitOrderRequest {
+  int32 quantity = 1;
+  string symbol = 2;
+}
+
+message SubmitOrderResponse {
+  string id = 1;
+}
