@@ -1,24 +1,22 @@
 package is.flores.exchange.userservice;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import io.quarkus.grpc.GrpcService;
+import io.smallrye.mutiny.Uni;
+import is.flores.exchange.grpc.userservice.FetchJwtRequest;
+import is.flores.exchange.grpc.userservice.FetchJwtResponse;
+import is.flores.exchange.grpc.userservice.UserService;
 
-@Path("/jwt")
-@ApplicationScoped
-public class UserServiceResource {
+import javax.inject.Inject;
+
+@GrpcService
+public class UserServiceResource implements UserService {
 
     @Inject
     JwtService jwtService;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response a() {
+    @Override
+    public Uni<FetchJwtResponse> fetchJwt(FetchJwtRequest request) {
         String jwt = jwtService.generateJwt();
-        return Response.ok(jwt).build();
+        return Uni.createFrom().item(() -> FetchJwtResponse.newBuilder().setJwt(jwt).build());
     }
 }
